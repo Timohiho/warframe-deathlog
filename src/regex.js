@@ -7,10 +7,16 @@ module.exports = {
   sourceRegex: /from a (.*) using a (.*)/i,
   eomRegex: /^([0-9.]+).*Mission Complete Bonus: ([\d]+)/,
   closedRegex: /^([0-9.]+).*Main Shutdown Complete\.$/,
-  sentRes: /^([0-9.]+).*Setting Sentinel state for (\w*) from \d to SS_ALIVE/,
-  sentDie: /^([0-9.]+).*Setting Sentinel state for (\w*) from \d to SS_DEAD_SPACE/,
+  sentRes: /^([0-9.]+) Sys \[Info\]: Setting Sentinel state for .+?(?=from)from \d to SS_ALIVE.*/,
+  sentDie: /^([0-9.]+) Sys \[Info\]: Setting Sentinel state for .+?(?=from)from \d to SS_DEAD_SPACE.*/,
   ammoRegex: /^([0-9.]+).*Sys \[Info\]: \/Lotus\/Weapons\/CrewShip\/((?:(?:Missiles|Laser)\/)?\w*) : (\d+)/,
-  arbiModRegex: /^([0-9.]+).*Script \[Info\]: Background.lua: EliteAlert: generated boosts for (?:[^\r\n]+?): suitType=([^\r\n]+?) wepType=([^\r\n]+)/,
-  arbiLocationRegex: /^([0-9.]+).*Script \[Info\]: Background.lua: EliteAlertMision at (.*)/,
+  arbiModRegex: /^([0-9.]+).*Script \[Info\]: Background.lua: EliteAlert: generated boosts for (?:[^\r\n]+?): suitType=([^\r\n]+?) wepTypes=([^\r\n]+)/,
+  arbiLocationRegex: /^([0-9.]+).*Script \[Info\]: Background.lua: EliteAlertMission at (.*)/,
   enemySpawnRegex: /^([0-9.]+).*AI \[Info\]: OnAgentCreated ([^\r\n ]+)/,
+  capturedTargedRegex: /^([0-9.]+).*Script \[Info\]: CaptureNew.lua: Capture: Target Captured. Total: (\d+), Captured: (\d+), Escaped: (\d+)/,
 };
+
+/*
+// eslint-disable-next-line max-len
+capturedTarget: 16885.006 Script [Info]: CaptureNew.lua: Capture: Target Captured. Total: 1, Captured: 1, Escaped: 0
+ */

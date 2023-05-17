@@ -26,7 +26,8 @@ class GameClosedEvent extends require('./BaseEvent') {
   }
 
   toString() {
-    return `${super.toString()} - ${this.useColors ? this.player.cyan : this.player} ${this.useColors ? this.target.yellow : this.target} revived`;
+    return `${super.toString()} - ${this.player} ${this.target} revived`;
+    //return `${super.toString()} - ${this.useColors ? this.player.cyan : this.player} ${this.useColors ? this.target.yellow : this.target} revived`;
   }
 }
 

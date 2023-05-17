@@ -21,6 +21,7 @@ const {
 
 const defaultLogPath = `${process.env.localappdata}\\Warframe\\EE.log`;
 const runlines = [];
+let lastLine = 0;
 
 class DeathLogParser extends EventEmitter {
   // eslint-disable-next-line no-console
@@ -41,7 +42,12 @@ class DeathLogParser extends EventEmitter {
 
     if (!file) return;
 
-    const lines = file.split('\r\n');
+    let lines = file.split('\r\n');
+    const newlines = lines.slice(lastLine);
+
+    lastLine = lines.length - 1;
+
+    lines = newlines;
     let output = [];
 
     const sline = new Start(lines);
@@ -50,7 +56,7 @@ class DeathLogParser extends EventEmitter {
       runlines.push(sline.toString());
       output.push(sline);
     }
-    
+
     const events = [];
     for (const line of lines) {
       let event;
@@ -73,7 +79,7 @@ class DeathLogParser extends EventEmitter {
       } else if (enemySpawnRegex.test(line)) {
         event = EnemySpawn;
       }
-      
+
       if (event) {
         event = new event(line, sline.timestamp);
         if (event.resolve) {
