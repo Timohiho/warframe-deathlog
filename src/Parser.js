@@ -14,9 +14,10 @@ const AmmoEvent = require('./events/AmmoEvent');
 const ArbitrationMod = require('./events/ArbitrationMod');
 const ArbitrationSpawn = require('./events/ArbitrationSpawn');
 const EnemySpawn = require('./events/EnemySpawn');
+const TargetCaptured = require('./events/TargetCapturedEvent');
 
 const {
-  deathRegex, eomRegex, closedRegex, sentRes, sentDie, ammoRegex, arbiModRegex, arbiLocationRegex, enemySpawnRegex,
+  deathRegex, eomRegex, closedRegex, sentRes, sentDie, ammoRegex, arbiModRegex, arbiLocationRegex, enemySpawnRegex, capturedTargedRegex,
 } = require('./regex');
 
 const defaultLogPath = `${process.env.localappdata}\\Warframe\\EE.log`;
@@ -47,10 +48,11 @@ class DeathLogParser extends EventEmitter {
 
     lastLine = lines.length - 1;
 
-    lines = newlines;
     let output = [];
 
     const sline = new Start(lines);
+
+    lines = newlines;
 
     if (!runlines.includes(sline.toString()) && sline.player.length) {
       runlines.push(sline.toString());
@@ -78,6 +80,8 @@ class DeathLogParser extends EventEmitter {
         event = ArbitrationSpawn;
       } else if (enemySpawnRegex.test(line)) {
         event = EnemySpawn;
+      } else if (capturedTargedRegex.test(line)) {
+        event = TargetCaptured;
       }
 
       if (event) {
